@@ -2,6 +2,7 @@
     package="com.example.movieapp">
 
   <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+  <uses-permission android:name="android.permission.INTERNET" />
    <application
         android:label="movieapp"
         android:icon="@mipmap/ic_launcher">
