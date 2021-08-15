@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:movieapp/models/Moviemodel.dart';
@@ -36,29 +37,31 @@ class _MovieDetailState extends State<MovieDetail> {
   Widget build(BuildContext context) {
       return Scaffold(
         appBar: AppBar(
-          title: Text("Detail"),
+          backgroundColor: Colors.black,
+          iconTheme:IconThemeData(color: Colors.white),
+          title: Text("Detail",),
         ),
-
+    backgroundColor: Colors.black,
         body: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(
-                // height: 200,
+                 height: Get.width*.80,
                  width: MediaQuery.of(context).size.width,
                 child: m.imgpath==""? Hero(tag: m.name.toString(), child: Image.asset("assets/noimage2.png")) :  Hero(tag: widget.uniquekey+1, child: Image.file(File(m.imgpath!),fit: BoxFit.cover,)),
               ),
 
               SizedBox(height: 20,),
 
-              Row( children:[SizedBox(width: 20,),Text("Movie Name: ",style: GoogleFonts.poppins(fontWeight: FontWeight.w400,fontSize: 18),),SizedBox(width: 20,), Text("${m.name!}",style: GoogleFonts.poppins(fontWeight: FontWeight.w400,fontSize: 20),)]),
+              Row( children:[SizedBox(width: 20,),Text("Movie Name: ",style: GoogleFonts.poppins(fontWeight: FontWeight.w400,fontSize: 18,color: Colors.white),),SizedBox(width: 20,), Text("${m.name!}",style: GoogleFonts.poppins(fontWeight: FontWeight.w400,fontSize: 20,color: Colors.white),)]),
               SizedBox(height: 10,),
-              Row( children:[SizedBox(width: 20,),Text("Directed By: ",style: GoogleFonts.poppins(fontWeight: FontWeight.w400,fontSize: 18),),SizedBox(width: 20,), Text("${m.director!}",style: GoogleFonts.poppins(fontWeight: FontWeight.w400,fontSize: 20),)]),
+              Row( children:[SizedBox(width: 20,),Text("Directed By: ",style: GoogleFonts.poppins(fontWeight: FontWeight.w400,fontSize: 18,color: Colors.white),),SizedBox(width: 20,), Text("${m.director!}",style: GoogleFonts.poppins(fontWeight: FontWeight.w400,fontSize: 20,color: Colors.white),)]),
               SizedBox(height: 20,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("Movie Description : ",style: GoogleFonts.poppins(fontWeight: FontWeight.w400,fontSize: 18),)
+                  Text("Movie Description : ",style: GoogleFonts.poppins(fontWeight: FontWeight.w400,fontSize: 18,color: Colors.white),)
                 ],
               ),
 
@@ -66,7 +69,7 @@ class _MovieDetailState extends State<MovieDetail> {
 
               Padding( 
                 padding: EdgeInsets.symmetric(horizontal: 20,vertical:5),
-                child: Text(m.description!,style: GoogleFonts.poppins(fontWeight: FontWeight.w400,fontSize: 15),)),
+                child: Text(m.description!,style: GoogleFonts.poppins(fontWeight: FontWeight.w400,fontSize: 15,color: Colors.white),)),
 
                 SizedBox(height: 10,)
 

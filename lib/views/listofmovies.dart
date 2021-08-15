@@ -7,6 +7,7 @@ import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:lottie/lottie.dart';
 import 'package:movieapp/models/Moviemodel.dart';
 import 'package:movieapp/views/addmovie.dart';
 import 'package:movieapp/views/editmovie.dart';
@@ -43,6 +44,8 @@ class _ListofMoviesState extends State<ListofMovies> {
   Widget build(BuildContext context) {
    return Scaffold(
      appBar: AppBar(
+       backgroundColor: Colors.black,
+       elevation: 0,
        title: Text("Movies"),
        centerTitle: true,
        leading:   Padding(
@@ -77,7 +80,7 @@ class _ListofMoviesState extends State<ListofMovies> {
          SizedBox(width: 10,)
        ],
      ),
-     backgroundColor: Colors.grey[300],
+     backgroundColor: Colors.black,//Colors.grey[300],
     
      
      body: Container(
@@ -89,7 +92,20 @@ class _ListofMoviesState extends State<ListofMovies> {
           List<int> keys = box.keys.cast<int>().toList();
 
 
-          return ListView.separated(
+          return keys.isEmpty? 
+
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Lottie.asset("assets/space.json"),
+              SizedBox(height: 20,),
+              Text('It\'s all empty in here, Houston',style: GoogleFonts.poppins(color: Colors.white,fontSize: 22),)
+            ],
+          )
+          
+          
+          
+          : ListView.separated(
 
 
             separatorBuilder: (context,int){
@@ -98,10 +114,230 @@ class _ListofMoviesState extends State<ListofMovies> {
 
             itemCount: keys.length,
             itemBuilder: (context, index){
-
+                
               final int key = keys[index];
               final MovieModel? model = box.get(key);
               
+              
+              if(index == keys.length-1){
+                return Column(
+                  children:[
+
+                  GestureDetector(
+                onTap: (){
+                  Get.to(MovieDetail(uniquekey: key,));
+                },
+                child: Container(
+
+                  //padding: EdgeInsets.symmetric(horizontal: 20),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                    color: Colors.grey[800],
+                  ),
+                  height: 210,
+                  width: MediaQuery.of(context).size.width,
+                  child: Stack(
+                    //crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+
+                      ClipRRect(
+                        borderRadius: BorderRadius.all(Radius.circular(10) ),
+                        child: SizedBox(
+                          height: 210,
+                          width: MediaQuery.of(context).size.width,
+                          child: model!.imgpath==""? Hero(tag: model.name.toString(), child: Image.asset("assets/noimage2.png")) : Hero(tag: key+1, child: Image.file(File(model.imgpath!),fit: BoxFit.fitWidth,)),
+                        ),
+                      ),
+
+                      SizedBox(height: 5,),
+
+                      Positioned(
+                        bottom: 0,
+                        child: Container(
+                          height: 100,
+                          width: MediaQuery.of(context).size.width,
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              colors: [
+                                Colors.black.withOpacity(0.3),
+                                Colors.grey.withOpacity(0.5)
+                              ],
+                              begin: const FractionalOffset(0.0, 0.0),
+                              end: const FractionalOffset(1.0, 0.0),
+                              stops: [0.0, 1.0],
+                              tileMode: TileMode.clamp
+                             // begin: 
+                            )
+                          ),
+                        ),
+                      ),
+              
+                      Positioned(
+                        bottom: 30,
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 10),
+                          child: Text(model.name!,style: GoogleFonts.poppins(fontWeight: FontWeight.w400,fontSize: 18,color: Colors.white),)),
+                      ),
+                      SizedBox(height: 10,),
+              
+                      Positioned(
+                        // /right: 0,
+                        bottom: 10,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children:[ Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 10),
+                            child: Text(model.director!,style: GoogleFonts.poppins(color: Colors.white),)),
+                            
+
+                            SizedBox(width: Get.width*.55,),
+                      
+                            Row(
+                              
+                              children: [
+                                GestureDetector(
+                              onTap: (){
+                              //  int k = key;
+                              //  print(k);
+                               Navigator.of(context).push(
+                                 MaterialPageRoute(builder: (context)=> EditMovie(uniquekey: key,))
+                               );
+                              },
+                              child: Container(
+                                padding:EdgeInsets.all(2),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.all(Radius.circular(5)),
+                                  color: Colors.black
+                                ),
+                                 child: Icon(Icons.edit,color: Colors.white, )),
+                              ),
+                              SizedBox(width: 20,),
+                              
+                              GestureDetector(
+                                onTap: ()async{
+                                  await _delete(model.name.toString(),key);
+                                },
+                                child: Container(
+                                   padding:EdgeInsets.all(2),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.all(Radius.circular(5)),
+                                  color: Colors.black
+                                ),
+                                  child: Icon(Icons.delete,color: Colors.red)),
+                              ),
+                              SizedBox(width: 10,)
+                                ],
+                            )
+                      
+                          ]
+                        ),
+                      )
+                     
+              
+                    ],
+                  ),
+                ),
+              ),
+
+                 SizedBox(height:50 ,),
+
+
+                 
+                  Center(
+                    child: Text('Add More Movies, Expand Your Collection!',textAlign: TextAlign.center,style: GoogleFonts.poppins(color: Colors.white,fontSize:22,)),
+                    ),
+
+
+                 Container(
+                    child: Lottie.asset("assets/laptop.json"),
+                  ),
+
+
+
+                   
+
+
+
+                //    GestureDetector(
+                // onTap: (){
+                //   Get.to(MovieDetail(uniquekey: key,));
+                // },
+                // child: Container(
+
+                //   //padding: EdgeInsets.symmetric(horizontal: 20),
+                //   decoration: BoxDecoration(
+                //     borderRadius: BorderRadius.all(Radius.circular(10)),
+                //     color: Colors.white,
+                //   ),
+                //   height: 210,
+                //   width: MediaQuery.of(context).size.width,
+                //   child: Column(
+                //     crossAxisAlignment: CrossAxisAlignment.start,
+                //     children: [
+
+                //       ClipRRect(
+                //         borderRadius: BorderRadius.only(topLeft:Radius.circular(10) ,topRight:Radius.circular(10) ),
+                //         child: SizedBox(
+                //           height: 130,
+                //           width: MediaQuery.of(context).size.width,
+                //           child: model!.imgpath==""? Hero(tag: model.name.toString(), child: Image.asset("assets/noimage2.png")) : Hero(tag: key+1, child: Image.file(File(model.imgpath!),fit: BoxFit.fitWidth,)),
+                //         ),
+                //       ),
+
+                //       SizedBox(height: 5,),
+              
+                //       Padding(
+                //         padding: EdgeInsets.symmetric(horizontal: 10),
+                //         child: Text(model.name!,style: GoogleFonts.poppins(fontWeight: FontWeight.w400,fontSize: 18),)),
+                //       SizedBox(height: 10,),
+              
+                //       Row(
+                //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //         children:[ Padding(
+                //           padding: EdgeInsets.symmetric(horizontal: 10),
+                //           child: Text(model.director!)),
+
+
+                //           Row(
+                //             children: [
+                //               GestureDetector(
+                //             onTap: (){
+                //             //  int k = key;
+                //             //  print(k);
+                //              Navigator.of(context).push(
+                //                MaterialPageRoute(builder: (context)=> EditMovie(uniquekey: key,))
+                //              );
+                //             },
+                //             child: Icon(Icons.edit),
+                //             ),
+                //             SizedBox(width: 20,),
+                            
+                //             GestureDetector(
+                //               onTap: ()async{
+                //                 await _delete(model.name.toString(),key);
+                //               },
+                //               child: Icon(Icons.delete,color: Colors.red),
+                //             ),
+                //             SizedBox(width: 10,)
+                //               ],
+                //           )
+
+                //         ]
+                //       )
+                     
+              
+                //     ],
+                //   ),
+                // ),
+                //   )
+                  ]
+                );
+              }
+
+              else{
+
+              
+
               return GestureDetector(
                 onTap: (){
                   Get.to(MovieDetail(uniquekey: key,));
@@ -111,62 +347,105 @@ class _ListofMoviesState extends State<ListofMovies> {
                   //padding: EdgeInsets.symmetric(horizontal: 20),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(10)),
-                    color: Colors.white,
+                    color: Colors.grey[800],
                   ),
                   height: 210,
                   width: MediaQuery.of(context).size.width,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  child: Stack(
+                    //crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
 
                       ClipRRect(
-                        borderRadius: BorderRadius.only(topLeft:Radius.circular(10) ,topRight:Radius.circular(10) ),
+                        borderRadius: BorderRadius.all(Radius.circular(10) ),
                         child: SizedBox(
-                          height: 130,
+                          height: 210,
                           width: MediaQuery.of(context).size.width,
                           child: model!.imgpath==""? Hero(tag: model.name.toString(), child: Image.asset("assets/noimage2.png")) : Hero(tag: key+1, child: Image.file(File(model.imgpath!),fit: BoxFit.fitWidth,)),
                         ),
                       ),
 
                       SizedBox(height: 5,),
+
+                      Positioned(
+                        bottom: 0,
+                        child: Container(
+                          height: 100,
+                          width: MediaQuery.of(context).size.width,
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              colors: [
+                                Colors.black.withOpacity(0.3),
+                                Colors.grey.withOpacity(0.5)
+                              ],
+                              begin: const FractionalOffset(0.0, 0.0),
+                              end: const FractionalOffset(1.0, 0.0),
+                              stops: [0.0, 1.0],
+                              tileMode: TileMode.clamp
+                             // begin: 
+                            )
+                          ),
+                        ),
+                      ),
               
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 10),
-                        child: Text(model.name!,style: GoogleFonts.poppins(fontWeight: FontWeight.w400,fontSize: 18),)),
+                      Positioned(
+                        bottom: 30,
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 10),
+                          child: Text(model.name!,style: GoogleFonts.poppins(fontWeight: FontWeight.w400,fontSize: 18,color: Colors.white),)),
+                      ),
                       SizedBox(height: 10,),
               
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children:[ Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 10),
-                          child: Text(model.director!)),
-
-
-                          Row(
-                            children: [
-                              GestureDetector(
-                            onTap: (){
-                            //  int k = key;
-                            //  print(k);
-                             Navigator.of(context).push(
-                               MaterialPageRoute(builder: (context)=> EditMovie(uniquekey: key,))
-                             );
-                            },
-                            child: Icon(Icons.edit),
-                            ),
-                            SizedBox(width: 20,),
+                      Positioned(
+                        // /right: 0,
+                        bottom: 10,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children:[ Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 10),
+                            child: Text(model.director!,style: GoogleFonts.poppins(color: Colors.white),)),
                             
-                            GestureDetector(
-                              onTap: ()async{
-                                await _delete(model.name.toString(),key);
-                              },
-                              child: Icon(Icons.delete,color: Colors.red),
-                            ),
-                            SizedBox(width: 10,)
-                              ],
-                          )
 
-                        ]
+                            SizedBox(width: Get.width*.55,),
+                      
+                            Row(
+                              
+                              children: [
+                                GestureDetector(
+                              onTap: (){
+                              //  int k = key;
+                              //  print(k);
+                               Navigator.of(context).push(
+                                 MaterialPageRoute(builder: (context)=> EditMovie(uniquekey: key,))
+                               );
+                              },
+                              child: Container(
+                                 padding:EdgeInsets.all(2),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.all(Radius.circular(5)),
+                                  color: Colors.black
+                                ),
+                                child: Icon(Icons.edit,color: Colors.white,)),
+                              ),
+                              SizedBox(width: 10,),
+                              
+                              GestureDetector(
+                                onTap: ()async{
+                                  await _delete(model.name.toString(),key);
+                                },
+                                child: Container(
+                                   padding:EdgeInsets.all(2),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.all(Radius.circular(5)),
+                                  color: Colors.black
+                                ),
+                                  child: Icon(Icons.delete,color: Colors.red)),
+                              ),
+                              SizedBox(width: 10,)
+                                ],
+                            )
+                      
+                          ]
+                        ),
                       )
                      
               
@@ -174,6 +453,8 @@ class _ListofMoviesState extends State<ListofMovies> {
                   ),
                 ),
               );
+
+            }
 
             },
 

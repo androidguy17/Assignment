@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:movieapp/models/Moviemodel.dart';
 import 'package:movieapp/views/Signingoogle.dart';
 import 'package:movieapp/views/listofmovies.dart';
-import 'package:movieapp/views/movelist.dart';
 import 'package:hive/hive.dart';
 import 'package:movieapp/views/signin.dart';
 import 'package:movieapp/views/signup.dart';

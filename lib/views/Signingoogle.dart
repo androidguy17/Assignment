@@ -9,7 +9,6 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hive/hive.dart';
 import 'package:lottie/lottie.dart';
 import 'package:movieapp/models/Moviemodel.dart';
-import 'package:movieapp/views/movelist.dart';
 
 import '../main.dart';
 import 'listofmovies.dart';
@@ -45,7 +44,7 @@ class _SigninGoogleState extends State<SigninGoogle> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: Color(0xff9999ff),
+        backgroundColor:Colors.black,// Color(0xff9999ff),
         actions: [
           // IconButton(onPressed: (){
           //   logout();
@@ -53,7 +52,7 @@ class _SigninGoogleState extends State<SigninGoogle> {
         ],
         //title: Text('Google signin'),
       ),
-      backgroundColor: Color(0xff9999ff),
+      backgroundColor: Colors.black,//Color(0xff9999ff),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -65,9 +64,9 @@ class _SigninGoogleState extends State<SigninGoogle> {
       
           SizedBox(height: 20,),
       
-          Text('   Hey There, ',textAlign: TextAlign.left,style: GoogleFonts.roboto(color: Colors.yellow, fontSize: 35,fontWeight: FontWeight.w500,)),
+          Text('    Hey There, ',textAlign: TextAlign.left,style: GoogleFonts.roboto(color: Colors.yellow, fontSize: 35,fontWeight: FontWeight.w500,)),
           SizedBox(height: 10,),
-          Row(children: [ SizedBox(width: Get.width*.20,), Text('Welcome Aboard! ',textAlign: TextAlign.left,style: GoogleFonts.roboto(color: Colors.white, fontSize: 28,fontWeight: FontWeight.w500,))]),
+          Row(children: [  Text('     Welcome Aboard! ',textAlign: TextAlign.left,style: GoogleFonts.roboto(color: Colors.white, fontSize: 28,fontWeight: FontWeight.w500,))]),
       
           SizedBox(height: 40,),
 
