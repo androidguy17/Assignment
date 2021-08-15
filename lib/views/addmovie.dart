@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:lottie/lottie.dart';
 import 'package:movieapp/models/Moviemodel.dart';
 
 import '../main.dart';
@@ -34,9 +35,13 @@ class _AddMovieState extends State<AddMovie> {
   @override
   Widget build(BuildContext context) {
       return Scaffold(
+        backgroundColor: Colors.white,
         appBar: AppBar(
-          title: Text('Add Movie'),
-          centerTitle: true,
+          iconTheme: IconThemeData(color: Colors.black),
+          backgroundColor: Colors.white,
+          elevation: 0,
+          //title: Text('Add Movie'),
+          //centerTitle: true,
         ),
 
         body: GestureDetector(
@@ -50,6 +55,8 @@ class _AddMovieState extends State<AddMovie> {
                 children: [
         
                   Text("Add New Movie:",style: GoogleFonts.poppins(fontSize: 23),),
+
+                  Lottie.asset("assets/movie.json"),
         
                   SizedBox(height: 30,),
         
@@ -112,7 +119,7 @@ class _AddMovieState extends State<AddMovie> {
                   SizedBox(
                     height: 100,
                     width: 100,
-                    child: imgpath.text==""? Image.asset("assets/noimage.png"):Image.file(File(imgpath.text)),
+                    child: imgpath.text==""? Image.asset("assets/noimage2.png"):Image.file(File(imgpath.text)),
                   ),
                   
                   ElevatedButton(onPressed: () async{

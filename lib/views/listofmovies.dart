@@ -111,7 +111,7 @@ class _ListofMoviesState extends State<ListofMovies> {
                   //padding: EdgeInsets.symmetric(horizontal: 20),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(10)),
-                    color: Color(0xff9999ff),
+                    color: Colors.white,
                   ),
                   height: 210,
                   width: MediaQuery.of(context).size.width,
@@ -124,7 +124,7 @@ class _ListofMoviesState extends State<ListofMovies> {
                         child: SizedBox(
                           height: 130,
                           width: MediaQuery.of(context).size.width,
-                          child: model!.imgpath==""?Image.asset("assets/noimage.png") :Image.file(File(model.imgpath!),fit: BoxFit.fitWidth,),
+                          child: model!.imgpath==""? Hero(tag: model.name.toString(), child: Image.asset("assets/noimage2.png")) : Hero(tag: key+1, child: Image.file(File(model.imgpath!),fit: BoxFit.fitWidth,)),
                         ),
                       ),
 

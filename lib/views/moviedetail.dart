@@ -46,7 +46,7 @@ class _MovieDetailState extends State<MovieDetail> {
               SizedBox(
                 // height: 200,
                  width: MediaQuery.of(context).size.width,
-                child: m.imgpath==""?Image.asset("assets/noimage.png") :Image.file(File(m.imgpath!),fit: BoxFit.cover,),
+                child: m.imgpath==""? Hero(tag: m.name.toString(), child: Image.asset("assets/noimage2.png")) :  Hero(tag: widget.uniquekey+1, child: Image.file(File(m.imgpath!),fit: BoxFit.cover,)),
               ),
 
               SizedBox(height: 20,),
