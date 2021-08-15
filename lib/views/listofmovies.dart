@@ -13,6 +13,7 @@ import 'package:movieapp/views/editmovie.dart';
 import 'package:movieapp/views/moviedetail.dart';
 
 import '../main.dart';
+import 'Signingoogle.dart';
 
 class ListofMovies extends StatefulWidget{
   @override
@@ -44,23 +45,40 @@ class _ListofMoviesState extends State<ListofMovies> {
      appBar: AppBar(
        title: Text("Movies"),
        centerTitle: true,
-       actions: [
-         InkWell(
-           splashColor: Colors.blue,
-           onTap: (){  Get.to(AddMovie());},
-           child: Ink(
-             child: Row(
-               children: [
-                 Icon(Icons.add),
-                 Text('Add Movie'),
-                 SizedBox(width: 10,)
-               ],
+       leading:   Padding(
+         padding: EdgeInsets.symmetric(horizontal: 10),
+         child: InkWell(
+           
+             splashColor: Colors.blue,
+             onTap: (){  Get.to(AddMovie());},
+             child: Ink(
+               child: Row(
+                 children: [
+                   Icon(Icons.add),
+                  // Text('Add Movie'),
+                   SizedBox(width: 10,)
+                 ],
+               ),
              ),
            ),
-         )
+       ),
+
+       actions: [
+         InkWell(
+           onTap: () {
+             login = 0;
+             SigninGoogle().logout();
+             Get.off(SigninGoogle());
+
+           },
+           child: Icon(Icons.logout),
+         ),
+
+         SizedBox(width: 10,)
        ],
      ),
      backgroundColor: Colors.grey[300],
+    
      
      body: Container(
        padding: EdgeInsets.all(10),
@@ -89,10 +107,11 @@ class _ListofMoviesState extends State<ListofMovies> {
                   Get.to(MovieDetail(uniquekey: key,));
                 },
                 child: Container(
+
                   //padding: EdgeInsets.symmetric(horizontal: 20),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(10)),
-                    color: Colors.white,
+                    color: Color(0xff9999ff),
                   ),
                   height: 210,
                   width: MediaQuery.of(context).size.width,

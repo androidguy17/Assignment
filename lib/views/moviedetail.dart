@@ -7,6 +7,7 @@ import 'package:hive_flutter/adapters.dart';
 import 'package:movieapp/models/Moviemodel.dart';
 
 import '../main.dart';
+import 'Signingoogle.dart';
 
 class MovieDetail extends StatefulWidget{
 

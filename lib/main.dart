@@ -1,3 +1,4 @@
+// @dart=2.9
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:movieapp/models/Moviemodel.dart';
@@ -13,18 +14,20 @@ import 'package:firebase_core/firebase_core.dart';
 import 'views/addmovie.dart';
 
 
-const String moviedata = "moviedata";
+
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   final document = await getApplicationDocumentsDirectory();
   Hive.init(document.path);
   Hive.registerAdapter(MovieModelAdapter());
-  await Hive.openBox<MovieModel>(moviedata);
+  //await Hive.openBox<MovieModel>(moviedata);
+
+  
 
   runApp(MyApp());
 }
-
+int login=1;
 class MyApp extends StatelessWidget {
   
   @override

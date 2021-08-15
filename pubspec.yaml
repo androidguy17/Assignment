@@ -22,17 +22,19 @@ environment:
 
 dependencies:
   cupertino_icons: ^1.0.2
+  firebase_auth: ^3.0.1
+  firebase_core: ^1.4.0
   flutter:
     sdk: flutter
+  flutter_signin_button: ^2.0.0
   get: ^4.3.8
   google_fonts: ^2.1.0
+  google_sign_in: ^4.5.1
   hive: ^2.0.4
   hive_flutter: ^1.1.0
   image_picker: ^0.8.3+2
+  lottie: ^1.1.0
   path_provider: ^2.0.2
-  firebase_core: ^1.4.0
-  firebase_auth: ^3.0.1
-  google_sign_in: "^4.5.1"
 
 dev_dependencies:
   build_runner: null
