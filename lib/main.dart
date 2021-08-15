@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:movieapp/models/Moviemodel.dart';
+import 'package:movieapp/views/listofmovies.dart';
 import 'package:movieapp/views/movelist.dart';
 import 'package:hive/hive.dart';
 import 'package:movieapp/views/test.dart';
 import 'package:path_provider/path_provider.dart';
+
+import 'views/addmovie.dart';
 
 
 const String moviedata = "moviedata";
@@ -21,13 +25,13 @@ class MyApp extends StatelessWidget {
   
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       title: 'Movie App',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
       debugShowCheckedModeBanner: false,
-      home: MovieList(),
+      home: ListofMovies()//MovieList(),
     );
   }
 }

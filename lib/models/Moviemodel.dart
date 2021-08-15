@@ -14,6 +14,9 @@ class MovieModel {
   @HiveField(2)
   final String? imgpath;
 
-  MovieModel({this.name, this.director,this.imgpath});
+  @HiveField(3)
+  final String? description;
+
+  MovieModel({this.name, this.director,this.imgpath,this.description});
 
 }
